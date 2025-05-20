@@ -10,7 +10,6 @@ class Couture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
     return  Scaffold(
         appBar: const CustomAppBar(title: 'siret : 94276844100019 '),
     drawer: MediaQuery.of(context).size.width <= 750
