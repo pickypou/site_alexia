@@ -34,7 +34,7 @@ jobs:
         run: flutter build web --release
 
       - name: Debug secrets
-        run: echo "Secret is ${FIREBASE_SERVICE_ACCOUNT:0:30}..."
+        run: echo "Secret is ${FIREBASE_SERVICE_ACCOUNT::30}..."
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
