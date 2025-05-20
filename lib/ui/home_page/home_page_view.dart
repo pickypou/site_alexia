@@ -22,7 +22,7 @@ class HomePageView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Les Petites Créas d'Alexia",
+                "Les Petites Créations  d'Alexia",
                 style: titleStyleLarge(context),
                 textAlign: TextAlign.center,
               ),
