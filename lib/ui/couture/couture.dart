@@ -39,6 +39,10 @@ class Couture extends StatelessWidget {
                 ProductCard(imageUrl: 'assets/images/trousse-1.jpg',
                     title: "Une petite trousse four tout",
                     description: "des mots doux à emporter partout pour celle qu'on aime fort !"
+                ),
+                ProductCard(imageUrl: 'assets/images/trousse-1.jpg',
+                    title: "Une petite trousse four tout",
+                    description: "des mots doux à emporter partout pour celle qu'on aime fort !"
                 )
 
 
