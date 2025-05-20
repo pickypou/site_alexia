@@ -51,5 +51,5 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ALEXIA_D2307 }}'
-          projectId: mon-projet-id-firebase
+          projectId: alexia-d2307
           channelId: live
