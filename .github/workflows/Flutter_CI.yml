@@ -2,3 +2,8 @@ name: flutter CI/CD
 on:
   push:
     branches: [main]
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    step:
+      - uses: action/checkout@v4
