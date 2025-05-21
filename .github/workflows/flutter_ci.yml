@@ -13,49 +13,36 @@ concurrency:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    env:
-      FLUTTER_VERSION: '3.29.3'  # Version exacte testée localement
-
     steps:
-      # Étape 1 - Checkout
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Nécessaire pour Firebase
+          fetch-depth: 0  # Important pour Firebase
 
-      # Étape 2 - Setup Flutter (version spécifique)
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: stable
-          cache: true  # Activation du cache
+          flutter-version: '3.29.3'  # Version que vous avez testée
+          channel: 'stable'
 
-      # Étape 3 - Dépendances
       - name: Install Dependencies
         run: |
           flutter pub get
           flutter pub run build_runner build --delete-conflicting-outputs
 
-      # Étape 4 - Tests
       - name: Run Tests
-        run: flutter test --coverage
+        run: flutter test
 
-      # Étape 5 - Build Web
-      - name: Build Web Release
-        run: |
-          flutter build web \
-            --release \
-            --no-tree-shake-icons \
-            --base-href /  # Important pour le routing
 
-      # Étape 6 - Déploiement Firebase
+      - name: Build pour le web
+        run: flutter build web --release
+
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           projectId: alexia-d2307
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ALEXIA_D2307 }}
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_ALEXIA_D2307 }}'
           channelId: live
-          target: public  # Optionnel mais recommandé
-        env:
-          FIREBASE_CLI_PREVIEWS: hostingchannels  # Active les nouvelles fonctionnalités
+          entryPoint: .
+
