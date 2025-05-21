@@ -10,3 +10,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        -name: Setup Flutter
+        use: subosito/flutter-actionv@2
+        with:
+          flutter-version: '3.29.3'
