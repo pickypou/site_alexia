@@ -13,10 +13,10 @@ jobs:
 
 
       - name: Set up Flutter
-        use: subosito/flutter-actionv@2
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.3'
-          chanel: 'stable'
+          channel: 'stable'
 
       - name: Get dependencies
         run: flutter pub get
