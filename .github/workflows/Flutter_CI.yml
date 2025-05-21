@@ -1,11 +1,12 @@
-name: flutter CI/CD
+name: Flutter CI/CD
 
 on:
   push:
     branches: [main]
+
 jobs:
-  build_and_test:
+  build_and_test:  # Nom du job
     runs-on: ubuntu-latest
-    step:
-      -main: Checkout code
-        uses: action/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
