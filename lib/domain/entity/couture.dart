@@ -1,25 +1,25 @@
-
-
 class Couture {
   final String id;
-  final String text;
+  final String description;
   final String title;
-  final String imageUrl;
+  final String price; // Notez que c'est un String, pas un double
+  String imageUrl; // Pas de valeur par défaut ici puisque c'est required dans le constructeur
 
-  Couture ({
+  Couture({
     required this.id,
-    required this.text,
+    required this.description,
+    required this.price,
     required this.title,
-    required this.imageUrl
-});
+    required this.imageUrl // Reste required
+  });
 
-  factory Couture.formMap(Map<String, dynamic>? data, String id) {
+  factory Couture.fromMap(Map<String, dynamic>? data, String id) {
     return Couture(
-        id: id,
-        text: data?['text'] ?? '',
-        title: data?['title']?? '',
-        imageUrl: data?['imageUrl']?? '',
+      id: id,
+      description: data?['description'] ?? '',
+      price: data?['price']?.toString() ?? '',
+      title: data?['title'] ?? '',
+      imageUrl: data?['imageUrl'] ?? '', // Utiliser la valeur de Firestore ou chaîne vide
     );
   }
-
 }

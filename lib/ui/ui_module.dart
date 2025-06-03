@@ -4,25 +4,19 @@ import 'package:injectable/injectable.dart';
 
 /// Interface abstraite pour les modules UI
 abstract class UIModule {
-  /// Méthode pour configurer les routes et autres éléments du module
   void configure();
 
-  /// Méthode pour obtenir les routes du module
   List<RouteBase> getRoutes();
 
-  /// Méthode pour obtenir les widgets partagés du module (si nécessaire)
   Map<String, WidgetBuilder> getSharedWidgets();
 }
 
-/// Mixin pour fournir une implémentation par défaut de getSharedWidgets
 mixin DefaultSharedWidgets on UIModule {
   @override
-  Map<String, WidgetBuilder> getSharedWidgets() {
-    return {};
-  }
+  Map<String, WidgetBuilder> getSharedWidgets() => {};
 }
 
-/// Classe pour gérer les routes de l'application
+/// Classe singleton qui gère les routes
 @singleton
 class AppRouter {
   final List<RouteBase> _routes = [];
@@ -34,10 +28,9 @@ class AppRouter {
   List<RouteBase> get routes => _routes;
 }
 
-/// Fonction pour créer le routeur Go
+/// Fonction factory pour créer le GoRouter à partir de AppRouter
 GoRouter createRouter(AppRouter appRouter) {
   return GoRouter(
     routes: appRouter.routes,
-    // Vous pouvez ajouter d'autres configurations ici si nécessaire
   );
 }

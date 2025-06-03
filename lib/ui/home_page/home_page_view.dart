@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:les_petite_creations_d_alexia/theme.dart';
+import 'package:les_petite_creations_d_alexia/ui/common/footer.dart';
 
 import '../common/custom_appbar.dart';
 
@@ -46,10 +47,15 @@ Merci de votre visite et bonne découverte !""",
                 style: textStyleText(context),
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 80,),
+              Footer()
             ],
           ),
         ),
+
       ],
+
+
     )
     );
   }

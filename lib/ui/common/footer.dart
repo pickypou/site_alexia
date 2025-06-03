@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:les_petite_creations_d_alexia/ui/common/clickable_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../theme.dart';
@@ -77,6 +78,8 @@ class Footer extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
+        ClickableImage(imagePath: 'assets/images/logo.jpg',
+        route: "/admin",),
 
         Flexible(
           flex: 2,

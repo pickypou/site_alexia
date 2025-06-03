@@ -1,21 +1,37 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
-import 'package:les_petite_creations_d_alexia/core/di/api/firestore_service.dart';
-import 'package:les_petite_creations_d_alexia/core/di/di.dart';
-import 'package:les_petite_creations_d_alexia/data/repository/couture_repository.dart';
-import 'package:les_petite_creations_d_alexia/data/repository/couture_repository_impl.dart';
+import 'package:les_petite_creations_d_alexia/core/di/api/storage_service.dart';
+import 'package:les_petite_creations_d_alexia/data/repository/user_repository.dart';
+import 'package:les_petite_creations_d_alexia/data/repository/user_repository_impl.dart';
+import 'package:les_petite_creations_d_alexia/domain/use_case/fetch_couture_data_usecase.dart';
+import 'package:les_petite_creations_d_alexia/ui/couture/add_couture/couture_interactor.dart';
+
+import '../../core/di/api/firestore_service.dart';
+import '../../core/di/di.dart';
+import 'couture_repository.dart';
+import 'couture_repository_impl.dart';
 
 void setupDataModule() {
-  if (!GetIt.I.isRegistered<FirebaseFirestore>()) {
-    GetIt.I.registerLazySingleton<FirebaseFirestore>(
-      () => FirebaseFirestore.instance,
-    );
-  }
-  if (!GetIt.I.isRegistered<FirestoreService>()) {
-    GetIt.I.registerLazySingleton<FirestoreService>(
-      () => getIt<FirestoreService>(),
-    );
-  }
 
-  getIt.registerLazySingleton<CoutureRepository>(() => CoutureRepositoryImpl());
+
+  getIt.registerLazySingleton<CoutureRepository>(
+          () => CoutureRepositoryImpl());
+
+
+
+  getIt.registerLazySingleton<UserRepository>(() =>
+      UserRepositoryImpl(getIt<FirebaseAuth>(),getIt<FirebaseFirestore>()) );
+
+  getIt.registerLazySingleton<CoutureInteractor>(
+          () => CoutureInteractor(
+
+              coutureRepository: getIt<CoutureRepositoryImpl>(),
+            storageService: getIt<StorageService>(),
+            firestoreService: getIt<FirestoreService>(),
+            fetchCoutureDataUseCase: getIt<FetchCoutureDataUseCase>(),
+  ));
+
+
 }

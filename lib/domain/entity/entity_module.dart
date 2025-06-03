@@ -7,7 +7,8 @@ void setupEntityModule() {
   getIt.registerFactory<Couture>(() =>
   Couture(
       id: 'id',
-      text: '',
+      description: '',
+      price: '',
       title: '',
       imageUrl: ''
   ));

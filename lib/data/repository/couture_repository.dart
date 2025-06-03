@@ -3,7 +3,7 @@ import 'package:les_petite_creations_d_alexia/data/dto/couture_dto.dart';
 import 'package:les_petite_creations_d_alexia/domain/entity/couture.dart';
 
 abstract class CoutureRepository {
-  FirebaseStorage get firestore;
+  FirebaseStorage get storage;
 
   Stream<Iterable<Couture>> getCoutureStream();
   Future<CoutureDto?> getById(String coutureId);
