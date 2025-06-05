@@ -1,7 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get_it/get_it.dart';
 import 'package:les_petite_creations_d_alexia/core/di/api/storage_service.dart';
 import 'package:les_petite_creations_d_alexia/data/repository/user_repository.dart';
 import 'package:les_petite_creations_d_alexia/data/repository/user_repository_impl.dart';
@@ -28,9 +27,9 @@ void setupDataModule() {
           () => CoutureInteractor(
 
               coutureRepository: getIt<CoutureRepositoryImpl>(),
-            storageService: getIt<StorageService>(),
+
             firestoreService: getIt<FirestoreService>(),
-            fetchCoutureDataUseCase: getIt<FetchCoutureDataUseCase>(),
+            fetchCoutureDataUseCase: getIt<FetchCoutureDataUseCase>(), storageService: getIt<StorageService>(),
   ));
 
 

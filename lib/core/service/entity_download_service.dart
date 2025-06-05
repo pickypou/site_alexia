@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class EntityDownloadService {
   final FirebaseFirestore firestore;
@@ -19,7 +20,7 @@ class EntityDownloadService {
 
       return entities;
     } catch (e) {
-      print('Erreur lors du téléchargement des entités depuis $collection : $e');
+      debugPrint('Erreur lors du téléchargement des entités depuis $collection : $e');
       rethrow;
     }
   }

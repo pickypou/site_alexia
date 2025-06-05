@@ -22,7 +22,7 @@ class FetchCoutureDataUseCase {
     }
   }
   ///Méthode de récupérer un objet couture via son ID
-Future<Couture?> getCoutureById(String coutureId) async {
+  Future<Couture?> getCoutureById(String coutureId) async {
     try {
       debugPrint('Fetching couture by ID: $coutureId');
 
@@ -46,5 +46,5 @@ Future<Couture?> getCoutureById(String coutureId) async {
       debugPrint("Error fetching couture by ID: $e");
       rethrow;
     }
-}
+  }
 }

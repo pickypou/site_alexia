@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:les_petite_creations_d_alexia/core/di/di.dart';
 import 'package:les_petite_creations_d_alexia/ui/couture/add_couture/add_couture_event.dart';
@@ -10,6 +12,7 @@ class AddCoutureBloc extends Bloc<AddCoutureEvent, AddCoutureState> {
   AddCoutureBloc() : super(AddCoutureSignUpInitialState()) {
     on<CoutureSignUpEvent>(_handleCoutureUpload);
   }
+
 
   Future<void> _handleCoutureUpload(
       CoutureSignUpEvent event, Emitter<AddCoutureState> emit) async {

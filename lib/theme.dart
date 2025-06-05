@@ -46,10 +46,10 @@ TextStyle titleStyleLarge(BuildContext context) {
 
 TextStyle titleStyleMedium(BuildContext context) {
   return TextStyle(
-    fontSize: calculateTitleFontSize(context, ratio: 30),
+    fontSize: calculateTitleFontSize(context, ratio: 25),
     fontWeight: FontWeight.w400,
     color: Theme.of(context).colorScheme.primary,
-    fontFamily: "Amable", // Police Amable pour les grands titres
+    fontFamily: "Autography", // Police Amable pour les grands titres
     decoration: TextDecoration.none,
   );
 }
@@ -91,7 +91,7 @@ TextStyle textStyleTextAppBar(BuildContext context) {
     GoogleFonts.montserrat().copyWith(
       fontSize:calculateFontSize(context, ratio: 80),
       fontWeight: FontWeight.bold,
-      color: Theme.of(context).colorScheme.onPrimary,
+      color: Theme.of(context).colorScheme.surface,
       decoration: TextDecoration.none,
     );
 }

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:les_petite_creations_d_alexia/ui/common/custom_appbar_admin.dart';
 
 import '../../../core/utils/access_checker.dart';
 import '../../../theme.dart';
@@ -44,29 +45,18 @@ class AccountViewState extends State<AccountView> {
       // Affiche un indicateur de chargement pendant la vérification
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Mon Compte'),
+          title: const Text(''),
         ),
         body: const Center(child: CircularProgressIndicator()),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: theme.colorScheme.onSurface,
-        title:  Text('Mon Compte',style: textStyleTextAppBar(context),),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            color: Theme.of(context).colorScheme.secondary,
-            onPressed: () {
-              auth.signOut().then((_) {
-                debugPrint('Déconnexion réussie');
-                context.go('/');
-              });
-            },
-          )
-        ],
-      ),
+      appBar:  CustomAppBarAdmin(title: ''),
+      drawer:
+      MediaQuery.of(context).size.width <= 750
+          ? const CustomDrawerAdmin()
+          : null,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -83,30 +73,23 @@ class AccountViewState extends State<AccountView> {
               ),
               const SizedBox(height: 35),
               Image.asset(
-                'assets/images/logo.jpg',
+                'assets/images/logo_1.jpg',
                 fit: BoxFit.contain,
                 width: MediaQuery.of(context).size.width * 0.5,
                 height: MediaQuery.of(context).size.height * 0.2,
               ),
-              const SizedBox(height: 90),
+              const SizedBox(height: 50),
               if (isAdmin) ...[
-                CustomButton(
-                  label: 'Ajouter ma création couture',
-                  onPressed: () {
-                    GoRouter.of(context).go('/addcouture');
-                  },
-                ),
-                const SizedBox(height: 50),
+                Text("J'enregistre où je supprime tout ce que je veux !!!!", style: textStyleText(context),
+                textAlign: TextAlign.center,
+                )
 
-                CustomButton(
-                  label: 'Je supprime un événement',
-                  onPressed: () {
-                    GoRouter.of(context).go('/evenementList');
-                  },
-                ),
+                  ],
+
+
 
               ],
-            ],
+
           ),
         ),
       ),

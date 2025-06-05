@@ -22,7 +22,10 @@ class UserRepositoryImpl implements UserRepository {
         DocumentSnapshot snapshot =
             await _firestore.collection('Users').doc(currentUser.uid).get();
         if (snapshot.exists) {
+          debugPrint("🆔 UID utilisateur connecté : ${FirebaseAuth.instance.currentUser?.uid}");
+
           return snapshot.data() as Map<String, dynamic>;
+
         } else {
           throw Exception('Aucune donnée utilisateur trouvée.');
         }
@@ -38,17 +41,33 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> registerUser(Users user) async {
     try {
+      // 1. Création du compte Auth
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: user.email,
         password: user.password,
       );
+
+      debugPrint("✅ Compte Auth créé avec UID: ${result.user?.uid}");
+
+      // 2. Création du document Firestore
       await _firestore.collection('Users').doc(result.user!.uid).set({
         'email': user.email,
         'userName': user.userName,
+        'createdAt': FieldValue.serverTimestamp(), // Ajout d'un timestamp
+        'uid': result.user!.uid, // Stockage de l'UID dans le document
       });
+
+      debugPrint("✅ Document utilisateur créé dans Firestore");
+
+    } on FirebaseAuthException catch (e) {
+      debugPrint("Erreur Auth: ${e.code} - ${e.message}");
+      throw Exception("Erreur d'inscription: ${e.message}");
+    } on FirebaseException catch (e) {
+      debugPrint("Erreur Firestore: ${e.code} - ${e.message}");
+      throw Exception("Erreur de création de profil: ${e.message}");
     } catch (e) {
-      debugPrint("Erreur lors de l'inscription de l'utilisateur : $e");
-      throw Exception("Echec de l'inscription : $e");
+      debugPrint("Erreur inattendue: $e");
+      throw Exception("Erreur inattendue: $e");
     }
   }
 

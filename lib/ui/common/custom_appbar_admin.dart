@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:les_petite_creations_d_alexia/core/di/api/auth_service.dart';
+import 'package:les_petite_creations_d_alexia/core/di/di.dart';
 
 import '../../theme.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBarAdmin extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
   final VoidCallback? onNavigate;
+  final auth = getIt<AuthService>();
 
-  const CustomAppBar({
+   CustomAppBarAdmin({
     super.key,
     required this.title,
     this.actions,
@@ -19,7 +22,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 
   Widget getLeading(BuildContext context) {
-    final isWideScreen = MediaQuery.of(context).size.width > 749;
+    final isWideScreen = MediaQuery
+        .of(context)
+        .size
+        .width > 749;
 
     if (!isWideScreen) {
       return Builder(
@@ -38,7 +44,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     } else {
       return context.canPop()
           ? IconButton(
-        icon:  Icon(Icons.arrow_back, color:theme.colorScheme.onSecondary),
+        icon: Icon(Icons.arrow_back, color: theme.colorScheme.secondary),
         onPressed: () => context.pop(),
       )
           : Container(); // Retourne un widget vide si on ne peut pas revenir en arrière
@@ -47,12 +53,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   List<Widget> generateNavActions(BuildContext context) {
     final List<Map<String, String>> navItems = [
-      {'label': 'Accueil', 'route': '/'},
-      {'label' : 'Couture', 'route': '/couture'},
-      {'label' : 'Mugs & verres', 'route': '/mugs'},
-      {'label' : 'Divers', 'route': '/divers'},
-      {'label' : 'Avis-clients', 'route': '/avisClients'},
-      {'label' : 'Contact', 'route' : '/contact'},
+      {'label': 'Accueil', 'route': '/account'},
+      {'label' : 'Add_Couture', 'route': '/addcouture'},
+      {'label' : 'Supp_couture', 'route': '/remove_couture'},
+
 
 
 
@@ -82,7 +86,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: theme.colorScheme.primary,
       title: Text(
         title, style: textStyleTextAppBar(context),
-       
+
       ),
       leading: getLeading(context),
       actions: [
@@ -93,27 +97,34 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           )),
         if (onNavigate != null)
           IconButton(
-            icon:  Icon(Icons.new_releases, color: theme.colorScheme.onSecondary),
+            icon:  Icon(Icons.new_releases, color: theme.colorScheme.surface),
             onPressed: onNavigate!,
           ),
         if (isWideScreen) ...generateNavActions(context),
+        IconButton(
+          icon: const Icon(Icons.logout),
+          color: Theme.of(context).colorScheme.surface,
+          onPressed: () {
+            auth.signOut().then((_) {
+              debugPrint('Déconnexion réussie');
+              context.go('/');
+            });
+          },
+        )
       ],
     );
   }
 }
 
-class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key});
+class CustomDrawerAdmin extends StatelessWidget {
+  const CustomDrawerAdmin({super.key});
 
   // Méthode pour générer les éléments du drawer
   List<Widget> generateDrawerItems(BuildContext context) {
     final List<Map<String, String>> drawerItems = [
-      {'label': 'Accueil', 'route': '/'},
-      {'label' : 'Couture', 'route': '/couture'},
-      {'label' : 'Mugs & verres', 'route': '/mugs'},
-      {'label' : 'Divers', 'route': '/divers'},
-      {'label' : 'Avis-clients', 'route': '/avisClients'},
-      {'label' : 'Contact', 'route' : '/contact'},
+      {'label': 'Accueil', 'route': '/account'},
+      {'label' : 'Add_Couture', 'route': '/addcouture'},
+      {'label' : 'Supp_couture', 'route': '/remove_couture'},
 
 
 
@@ -133,7 +144,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: theme.colorScheme.onSurface,
+      backgroundColor: theme.colorScheme.primary,
       elevation: 0,
       child: ListView(
         padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),

@@ -13,7 +13,7 @@ class CoutureDto {
     required this.description,
     required this.price,
     required this.imageUrl
-});
+  });
   factory CoutureDto.fromJson(Map<String, dynamic> json) {
     return CoutureDto(
         id: json['id'],
@@ -37,6 +37,6 @@ class CoutureDto {
   @override
   String toString(){
     return
-        'CoutureDto{id:$id, title: $title, description:$description, price:$price, imageUrl:$imageUrl}';
+      'CoutureDto{id:$id, title: $title, description:$description, price:$price, imageUrl:$imageUrl}';
   }
 }

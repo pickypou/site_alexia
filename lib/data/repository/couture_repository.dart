@@ -10,8 +10,8 @@ abstract class CoutureRepository {
   Future<void> add(CoutureDto coutureDto);
   Future<void> deleteCouture(String coutureId);
   Future<void> uploadField(
-    String coutureId,
-    String fieldName,
-    dynamic newValue,
-  );
+      String coutureId,
+      String fieldName,
+      dynamic newValue,
+      );
 }

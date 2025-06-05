@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:les_petite_creations_d_alexia/core/di/di.dart';
-import '../../../../core/utils/add_item_logic.dart';
 import '../../../../domain/entity/couture.dart';
-import '../couture_interactor.dart';
+import '../../../core/utils/add_item_logic.dart';
+import '../../couture/add_couture/couture_interactor.dart';
 
 class AddCoutureLogic extends AddItemLogic<Couture> {
   final CoutureInteractor _interactor = getIt<CoutureInteractor>();

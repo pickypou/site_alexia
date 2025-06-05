@@ -9,54 +9,66 @@ class HomePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        appBar: const CustomAppBar(title: 'siret : 94276844100019 '),
-    drawer: MediaQuery.of(context).size.width <= 750
-    ? const CustomDrawer()
-        : null,
-    body:Stack(
-      children: [
+    return Scaffold(
+      appBar: const CustomAppBar(title: ''),
+      drawer:
+          MediaQuery.of(context).size.width <= 750
+              ? const CustomDrawer()
+              : null,
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Le Monde partagé de la petite fée Crochette by Amandine ",
+                  style: titleStyleMedium(context),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "&",
+                  style: titleStyleMedium(context),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  "Les Créas D'Alexia",
+                  style: titleStyleMedium(context),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 30),
+                Image.asset(
+                  "assets/images/logo_1.jpg",
+                  fit: BoxFit.contain,
+                  width: 220,
+                ),
 
-        SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "Les Petites Créations  d'Alexia",
-                style: titleStyleLarge(context),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 30),
-              Text(
-                """Bonjour et bienvenue chez Les Petites Créas d’Alexia ✨
+                const SizedBox(height: 30),
+                Text('Deux créatrices , Deux univers ...', style: textStyleText(context),),
+                const SizedBox(height: 20),
+                Text('Une même passion du fait main.', style: textStyleText(context),),
+                const SizedBox(height: 20),
+                Text("Bienvenue dans notre monde à 4 mains, où chaque création raconte une histoire Unique. D'un côté, la douceur d'un monde féerique. De l'autre, un tourbillon de couleurs pétillantes. Créer, Créer, Coudre, Broder ou Crocheter, avec amour et fantaisie. Deux styles deux ambiances..."
+                  , style: textStyleText(context),),
+                const SizedBox(height: 20,),
+                Text("Il n'y a pas de frontière entre nos monde, seulement un pont de créativité et d'amitié.", style: textStyleText(context), ),
+                const SizedBox(height: 45,),
+                Wrap(
+                  children: [
+                    Text('La fée Crochette alias Amandine n° de siret : 94151489500015 ', style: textStyleText(context),),
+                    const SizedBox(width: 80,),
+                    Text("Les Créas D'Alexia n° de siret : 9427684400019", style: textStyleText(context),)
+                  ],
+                ),
 
-Je m’appelle Alexia, créatrice passionnée d’objets faits main. 
-À travers ce projet, je vous propose un univers doux et coloré, rempli de petites créations artisanales réalisées avec soin, patience et beaucoup d’amour.
-
-Je travaille différents matériaux et techniques pour donner vie à des objets uniques ou personnalisés, notamment :
-• la couture (accessoires, déco, créations textiles),
-• la création en papier (cartes, décorations, papeterie créative),
-• le transfert d’image sur tissu, mug, bois ou autre support,
-• le gravage sur verre pour des objets élégants et sur mesure,
-• et bien sûr, la personnalisation d’objets variés selon vos envies.
-
-Que ce soit pour un cadeau, une décoration originale ou un objet à votre image, je suis à votre écoute pour créer quelque chose qui vous ressemble.
-
-Merci de votre visite et bonne découverte !""",
-                style: textStyleText(context),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 80,),
-              Footer()
-            ],
+                const SizedBox(height: 80),
+                Footer(),
+              ],
+            ),
           ),
-        ),
-
-      ],
-
-
-    )
+        ],
+      ),
     );
   }
 }

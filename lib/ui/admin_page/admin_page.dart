@@ -15,76 +15,16 @@ class AdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = GetIt.instance<FirebaseAuth>();
-    Size size = MediaQuery.sizeOf(context);
-    if (size.width < 749) {
-      return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          backgroundColor: theme.colorScheme.onSurface,
-          title: const Text('Accueil'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              color: Theme.of(context).colorScheme.secondary,
-              onPressed: () {
-                auth.signOut().then((_) {
-                  debugPrint('Déconnexion réussie');
-                  context.go('/');
-                });
-              },
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 40),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
 
-              Text(
-                'Bienvenue sur l\'administration ',
-                style: titleStyleMedium(context),
-                textAlign: TextAlign.center,
-              ),
-              Text(
-               "D'Alexia",
-                style: titleStyleMedium(context),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 70),
-              /*CustomButton(
-                onPressed: () => GoRouter.of(context).go('/addUser'),
-                label: 'Je crée un compte',
-              ),*/
-              const SizedBox(height: 70), // Remplacez par :
-              SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
-              CustomButton(
-                onPressed: () {
-                  checkUserConnection(context);
-                },
-                label: 'Connexion',
-              ),
-            ],
-          ),
-        ),
-      );
-    } else {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: theme.colorScheme.onSurface,
-          title: const Text('Accueil'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              color: Theme.of(context).colorScheme.secondary,
-              onPressed: () {
-                auth.signOut().then((_) {
-                  debugPrint('Déconnexion réussie');
-                  context.go('/');
-                });
-              },
-            )
-          ],
+          backgroundColor: theme.colorScheme.primary,
+          title: TextButton(
+            onPressed: () {
+              context.go('/');
+            },
+            child: Text('Accueil', style: textStyleTextAppBar(context),),
+          ),
         ),
         body: Container(
           width: double.infinity,
@@ -104,11 +44,18 @@ class AdminPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    "D'Alexia",
+                    "De féerique",
                     style: titleStyleMedium(context),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 15), // Ajustement de l'espace
+                  Text(
+                    "& Petillante",
+                    style: titleStyleMedium(context),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 35,),
+                  Image.asset('assets/images/logo_1.jpg', fit: BoxFit.contain, width: 220,),
+                  const SizedBox(height: 35), // Ajustement de l'espace
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -134,4 +81,3 @@ class AdminPage extends StatelessWidget {
       );
     }
   }
-}

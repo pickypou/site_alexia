@@ -7,6 +7,7 @@ import 'package:les_petite_creations_d_alexia/ui/common/custom_text_field.dart';
 import 'package:les_petite_creations_d_alexia/ui/couture/add_couture/view/add_couture_logic.dart';
 
 import '../../../../theme.dart';
+import '../../../common/custom_appbar_admin.dart';
 
 class AddCoutureView extends StatefulWidget {
   const AddCoutureView({super.key});
@@ -29,22 +30,11 @@ class _AddCoutureViewState extends State<AddCoutureView> {
     final auth = GetIt.instance<FirebaseAuth>();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: theme.colorScheme.onSurface,
-        title: Text(''),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            color: Theme.of(context).colorScheme.secondary,
-            onPressed: () {
-              auth.signOut().then((_) {
-                debugPrint('Déconnexion réussie');
-                context.go('/');
-              });
-            },
-          ),
-        ],
-      ),
+      appBar:  CustomAppBarAdmin(title: ''),
+      drawer:
+      MediaQuery.of(context).size.width <= 750
+          ? const CustomDrawerAdmin()
+          : null,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),
@@ -100,9 +90,9 @@ class _AddCoutureViewState extends State<AddCoutureView> {
                 builder: (context, _) {
                   return CustomButton(
                     onPressed:
-                        logic.isValidInput()
-                            ? () => logic.addCouture(context)
-                            : null,
+                    logic.isValidInput()
+                        ? () => logic.addCouture(context)
+                        : null,
                     label: "Ajouter ma création",
                   );
                 },

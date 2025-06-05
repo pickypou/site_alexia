@@ -27,7 +27,10 @@ import '../../ui/admin_page/admin_page_module.dart' as _i727;
 import '../../ui/contact/contact_module.dart' as _i106;
 import '../../ui/couture/add_couture/add_couture_module.dart' as _i103;
 import '../../ui/couture/add_couture/couture_interactor.dart' as _i92;
-import '../../ui/couture/couture_module.dart' as _i277;
+import '../../ui/couture/couture_view/couture_module.dart' as _i213;
+import '../../ui/couture/remove_couture/remove_couture_interactor.dart'
+    as _i328;
+import '../../ui/couture/remove_couture/remove_couture_module.dart' as _i755;
 import '../../ui/home_page/home_page_module.dart' as _i147;
 import '../../ui/ui_module.dart' as _i573;
 import '../../ui/user/add_user_bloc.dart' as _i480;
@@ -71,11 +74,14 @@ Future<_i174.GetIt> init(
   gh.singleton<_i727.AdminPageModule>(
     () => _i727.AdminPageModule(gh<_i573.AppRouter>()),
   );
+  gh.singleton<_i213.CoutureModule>(
+    () => _i213.CoutureModule(gh<_i573.AppRouter>()),
+  );
   gh.singleton<_i103.AddCoutureModule>(
     () => _i103.AddCoutureModule(gh<_i573.AppRouter>()),
   );
-  gh.singleton<_i277.CoutureModule>(
-    () => _i277.CoutureModule(gh<_i573.AppRouter>()),
+  gh.singleton<_i755.RemoveCoutureModule>(
+    () => _i755.RemoveCoutureModule(gh<_i573.AppRouter>()),
   );
   gh.singleton<_i106.ContactModule>(
     () => _i106.ContactModule(gh<_i573.AppRouter>()),
@@ -112,6 +118,14 @@ Future<_i174.GetIt> init(
   );
   gh.factory<_i581.FetchCoutureDataUseCase>(
     () => _i581.FetchCoutureDataUseCase(gh<_i1065.CoutureRepository>()),
+  );
+  gh.factory<_i328.RemoveCoutureInteractor>(
+    () => _i328.RemoveCoutureInteractor(
+      gh<_i581.FetchCoutureDataUseCase>(),
+      gh<_i1065.CoutureRepository>(),
+      gh<_i974.FirebaseFirestore>(),
+      gh<_i457.FirebaseStorage>(),
+    ),
   );
   gh.singleton<_i857.AddUserInteractor>(
     () => _i857.AddUserInteractor(userRepository: gh<_i449.UserRepository>()),

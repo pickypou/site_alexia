@@ -22,23 +22,34 @@ class LoginView extends StatelessWidget {
         if (state is LoginFailure) {
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              title: const Text("Erreur de connexion"),
-              content: Text(state.error),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    GoRouter.of(context).pop();
-                  },
-                  child: const Text("OK"),
+            builder:
+                (context) => AlertDialog(
+                  title: const Text("Erreur de connexion"),
+                  content: Text(state.error),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        GoRouter.of(context).pop();
+                      },
+                      child: const Text("OK"),
+                    ),
+                  ],
                 ),
-              ],
-            ),
           );
         }
       },
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: theme.colorScheme.primary,
+            title: TextButton(
+              onPressed: () {
+                context.go('/');
+              },
+              child: Text('Accueil', style: textStyleTextAppBar(context),),
+            ),
+          ),
+
           body: Padding(
             padding: const EdgeInsets.all(10.0),
             child: ListView(
@@ -46,10 +57,7 @@ class LoginView extends StatelessWidget {
                 const SizedBox(height: 40),
                 Align(
                   alignment: Alignment.center,
-                  child: Text(
-                    'Connexion',
-                    style: titleStyleLarge(context),
-                  ),
+                  child: Text('Connexion', style: titleStyleLarge(context)),
                 ),
                 const SizedBox(height: 40),
                 CustomTextField(

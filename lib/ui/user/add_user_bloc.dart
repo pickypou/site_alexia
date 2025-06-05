@@ -5,10 +5,10 @@ import 'package:les_petite_creations_d_alexia/ui/user/add_user_interactor.dart';
 import 'package:les_petite_creations_d_alexia/ui/user/add_user_state.dart';
 
 import '../../domain/entity/users.dart';
-
 @singleton
 class AddUserBloc extends Bloc<AddUserEvent, AddUserState> {
   final AddUserInteractor interactor;
+
 
   AddUserBloc(this.interactor) : super(SignUpInitialState()) {
     on<AddUserSignUpEvent>((event, emit) async {

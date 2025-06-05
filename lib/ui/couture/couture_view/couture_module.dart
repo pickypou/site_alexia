@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter/material.dart';
-import '../ui_module.dart';
-import 'couture_view/couture_bloc.dart';
-import 'couture_view/couture_interactor_list.dart';
-import 'couture_view/couture_event.dart';
-import 'couture_view/view/couture_view.dart';
+import '../../ui_module.dart';
+import 'couture_bloc.dart';
+import 'couture_interactor_list.dart';
+import 'couture_event.dart';
+import 'view/couture_view.dart';
 
 @singleton
 class CoutureModule implements UIModule {
