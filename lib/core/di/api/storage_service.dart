@@ -85,6 +85,19 @@ class StorageService {
     }
   }
 
+  Future<void> deleteImageByUrl(String imageUrl) async {
+    try {
+      final ref = storage.refFromURL(imageUrl);
+      await ref.delete();
+      debugPrint("✅ Image supprimée avec succès");
+    } catch (e) {
+      debugPrint("❌ Erreur lors de la suppression de l'image : $e");
+      rethrow;
+    }
+  }
+
+
+
   Future<String> downloadUrl(String path) async {
     try {
       final ref = _firebaseStorage.ref(path);

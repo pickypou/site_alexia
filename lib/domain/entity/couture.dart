@@ -1,25 +1,32 @@
-class Couture {
-  final String id;
-  final String description;
-  final String title;
-  final String price; // Notez que c'est un String, pas un double
-  String imageUrl; // Pas de valeur par défaut ici puisque c'est required dans le constructeur
+// Couture
+import '../../core/base/generic_entity.dart';
 
+class Couture extends GenericEntity {
   Couture({
-    required this.id,
-    required this.description,
-    required this.price,
-    required this.title,
-    required this.imageUrl // Reste required
+    required super.id,
+    required super.title,
+    required super.description,
+    required super.price,
+    required super.imageUrl,
   });
 
-  factory Couture.fromMap(Map<String, dynamic>? data, String id) {
+  static Couture fromMap(Map<String, dynamic> json, String id) {
     return Couture(
       id: id,
-      description: data?['description'] ?? '',
-      price: data?['price']?.toString() ?? '',
-      title: data?['title'] ?? '',
-      imageUrl: data?['imageUrl'] ?? '', // Utiliser la valeur de Firestore ou chaîne vide
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      price: (json['price'] ?? 0).toString(), // Convertir en String
+      imageUrl: json['imageUrl'] as String? ?? '',
     );
+  }
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'description': description,
+      'price': price,
+      'imageUrl': imageUrl,
+    };
   }
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:les_petite_creations_d_alexia/core/base/base_list_state.dart';
+import 'package:les_petite_creations_d_alexia/core/base/generic_list_bloc.dart';
+import 'package:les_petite_creations_d_alexia/data/dto/couture_dto.dart';
 import 'package:les_petite_creations_d_alexia/theme.dart';
 import 'package:les_petite_creations_d_alexia/ui/common/product_card.dart';
 
-import '../couture_bloc.dart';
-import '../couture_state.dart';
+
 
 
 
@@ -14,14 +16,14 @@ class CoutureListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CoutureBloc, CoutureState>(
+    return BlocBuilder<GenericListBloc<CoutureDto>, BaseListState<CoutureDto>>(
       builder: (context, state) {
-        if (state is CoutureLoadingState) {
+        if (state is LoadingState) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is CoutureErrorState) {
+        } else if (state is ErrorState<CoutureDto>) {
           return Center(child: Text(state.message));
-        } else if (state is CoutureLoadedState) {
-          final coutures = state.coutureData;
+        } else if (state is LoadState<CoutureDto>) {
+          final coutures = state.items;
           if (coutures.isEmpty) {
             return const Center(child: Text("Aucune création trouvée."));
           }
@@ -41,14 +43,14 @@ class CoutureListView extends StatelessWidget {
                       spacing: 16,
                       runSpacing: 16,
                       alignment: WrapAlignment.center,
-                      children: coutures.map((evt) {
+                      children: coutures.map((dto) {
                         return SizedBox(
                           width: cardWidth,
                           child: ProductCard(
-                            imageUrl: evt.imageUrl,
-                            title: evt.title,
-                            description: evt.description,
-                            price: evt.price,
+                            imageUrl: dto.imageUrl,
+                            title: dto.title,
+                            description: dto.description,
+                            price: dto.price,
                           ),
                         );
                       }).toList(),
