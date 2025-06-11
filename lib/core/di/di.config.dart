@@ -25,13 +25,13 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    gh.singleton<_i573.AppRouter>(() => _i573.AppRouter());
     gh.singleton<_i718.AppRouterConfig>(() => _i718.AppRouterConfig());
-    gh.singleton<_i147.HomePageModule>(
-      () => _i147.HomePageModule(gh<_i573.AppRouter>()),
-    );
+    gh.singleton<_i573.AppRouter>(() => _i573.AppRouter());
     gh.singleton<_i106.ContactModule>(
       () => _i106.ContactModule(gh<_i573.AppRouter>()),
+    );
+    gh.singleton<_i147.HomePageModule>(
+      () => _i147.HomePageModule(gh<_i573.AppRouter>()),
     );
     gh.singleton<_i277.CoutureModule>(
       () => _i277.CoutureModule(gh<_i573.AppRouter>()),
