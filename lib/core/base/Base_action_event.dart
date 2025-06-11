@@ -1,3 +1,5 @@
+
+
 import 'package:equatable/equatable.dart';
 
 abstract class BaseActionEvent<T> extends Equatable {

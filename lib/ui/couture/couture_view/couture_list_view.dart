@@ -7,10 +7,6 @@ import 'package:les_petite_creations_d_alexia/theme.dart';
 import 'package:les_petite_creations_d_alexia/ui/common/product_card.dart';
 
 
-
-
-
-
 class CoutureListView extends StatelessWidget {
   const CoutureListView({super.key});
 

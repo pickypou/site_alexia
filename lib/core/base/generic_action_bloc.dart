@@ -21,6 +21,11 @@ class GenericActionBloc<T> extends Bloc<BaseActionEvent<T>, BaseActionState<T>> 
 
     on<DeleteItemEvent<T>>((e, emit) async {
       if (deleteFn == null) return;
+      if (e.id.isEmpty) {
+        emit(ActionFailureState<T>("ID vide — suppression annulée"));
+        return;
+      }
+
       emit(ActionInProgressState<T>());
       try {
         await deleteFn!(e.id);
@@ -29,5 +34,6 @@ class GenericActionBloc<T> extends Bloc<BaseActionEvent<T>, BaseActionState<T>> 
         emit(ActionFailureState<T>(e.toString()));
       }
     });
+
   }
 }

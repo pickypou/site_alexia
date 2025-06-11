@@ -4,7 +4,9 @@ import 'package:injectable/injectable.dart';
 import 'package:les_petite_creations_d_alexia/ui/account/account_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/admin_page/admin_page_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/contact/contact_module.dart';
+import 'package:les_petite_creations_d_alexia/ui/couture/add_couture_view/add_couture_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/couture/couture_view/couture_module.dart';
+import 'package:les_petite_creations_d_alexia/ui/couture/delete_couture/delete_couture_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/home_page/home_page_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/user/add_user_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/user/login/login_module.dart';
@@ -23,6 +25,8 @@ class AppRouterConfig {
       ...getIt<AddUserModule>().getRoutes(),
       ...getIt<LoginModule>().getRoutes(),
       ...getIt<AccountModule>().getRoutes(),
+      ...getIt<AddCoutureModule>().getRoutes(),
+      ...getIt<DeleteCoutureModule>().getRoutes()
 
 
 

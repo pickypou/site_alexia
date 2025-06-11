@@ -8,7 +8,7 @@ import '../../../core/base/generic_list_bloc.dart';
 import '../../../data/dto/couture_dto.dart';
 import '../../ui_module.dart';
 import '../couture_interactor.dart';
-import 'view/couture_view.dart';
+import 'couture_view.dart';
 
 @singleton
 class CoutureModule implements UIModule {

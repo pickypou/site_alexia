@@ -6,7 +6,15 @@ class CoutureInteractor {
 
   CoutureInteractor(this.repository);
 
-  Future<List<CoutureDto>> fetchData() => repository.getStream().first;
+  Future<List<CoutureDto>> fetchData() => repository
+      .getStream(
+    collectionName: 'couture', // ⚠️ mets ici le nom réel de ta collection
+    fromMap: (Map<String, dynamic> data, String id) {
+      return CoutureDto.fromJson(data).copyWith(id: id);
+    },
+  )
+      .first;
+
   Future<void> delete(String id) => repository.delete(id);
   Future<void> add(CoutureDto dto) => repository.add(dto);
 }

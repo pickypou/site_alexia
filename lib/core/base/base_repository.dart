@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:les_petite_creations_d_alexia/core/base/base_dto.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/dto/couture_dto.dart';
+
 
 class BaseRepository <T extends BaseDto> {
   final FirebaseFirestore _firestore;
@@ -29,52 +31,52 @@ class BaseRepository <T extends BaseDto> {
   T Function(Map<String, dynamic>, String) get fromMap => _fromMap;
   T Function(T, String) get addImageToEntity => _addImageToEntity;
 
-  Stream<List<T>> getStream() {
+  Stream<List<T>> getStream<T>({
+    required String collectionName,
+    required T Function(Map<String, dynamic> data, String id) fromMap,
+    Future<T> Function(T entity)? withImage,
+  }) {
     debugPrint("🔄 Début de getStream()");
 
-    return _firestore
-        .collection(_collectionName)
-        .snapshots()
-        .handleError((error) {
-      debugPrint("❌ Erreur Firestore: $error");
-      return <QuerySnapshot<Map<String, dynamic>>>[];
-    })
-        .asyncMap((querySnapshot) async {
-      debugPrint("📊 Documents reçus: ${querySnapshot.docs.length}");
+    return _firestore.collection(collectionName).snapshots().asyncMap((snapshot) async {
+      debugPrint("📊 Documents reçus: ${snapshot.docs.length}");
 
-      if (querySnapshot.docs.isEmpty) {
+      if (snapshot.docs.isEmpty) {
         debugPrint("⚠️ Aucun document trouvé dans la collection");
         return <T>[];
       }
 
-      final entities = await Future.wait(
-        querySnapshot.docs.map((doc) async {
-          try {
-            debugPrint("📄 Traitement du document: ${doc.id}");
-            final data = doc.data();
-            debugPrint("📋 Données du document: $data");
+      final entities = await Future.wait(snapshot.docs.map((doc) async {
+        try {
+          debugPrint("📄 Traitement du document: ${doc.id}");
+          final data = doc.data() as Map<String, dynamic>;
+          debugPrint("📋 Données du document: $data");
 
-            final entity = _fromMap(data, doc.id);
-            debugPrint("✅ Couture créée: ${entity.title}");
+          T entity = fromMap(data, doc.id);
+          debugPrint("✅ Entité créée: ${doc.id}");
 
-            // Récupération de l'image (optionnelle)
-            final entityWithImage = await _getImageForEntity(entity);
-            return entityWithImage;
-          } catch (e, stackTrace) {
-            debugPrint("❌ Erreur lors du traitement du document ${doc.id}: $e");
-            debugPrint("📍 StackTrace: $stackTrace");
-
-            return null;
+          if (withImage != null) {
+            entity = await withImage(entity);
           }
-        }),
-      );
+
+          return entity;
+        } catch (e, stack) {
+          debugPrint("❌ Erreur lors du traitement du document ${doc.id}: $e");
+          debugPrint("📍 Stack: $stack");
+          return null;
+        }
+      }));
 
       final validEntities = entities.whereType<T>().toList();
-      debugPrint("✅ Entités valides retournées: ${validEntities.length}");
+      debugPrint("✅ Entités valides: ${validEntities.length}");
+      for (var e in validEntities) {
+        debugPrint("➡️ ${(e as dynamic).id}");
+      }
 
       return validEntities;
     });
   }
+
 
 
   // Méthode séparée pour la récupération d'images
@@ -128,28 +130,34 @@ class BaseRepository <T extends BaseDto> {
 
 
   Future<void> delete(String entityId) async {
+    if (entityId.isEmpty) {
+      debugPrint("❌ entityId est vide, suppression annulée.");
+      return;
+    }
+
     try {
-      debugPrint("🗑️ Suppression réussi: $entityId");
+      debugPrint("🗑️ Suppression de l'entité : $entityId");
 
       // Supprimer le document Firestore
       await _firestore.collection(_collectionName).doc(entityId).delete();
 
-      // Supprimer les fichiers Storage
+      // Supprimer le fichier Storage correspondant (directement)
       try {
-        final result = await _storage.ref("$_collectionName/$entityId").listAll();
-        for (var ref in result.items) {
-          await ref.delete();
-        }
+        final fileRef = _storage.ref("$_collectionName/$entityId");
+        await fileRef.delete();
+        debugPrint("Fichier Storage supprimé: $_collectionName/$entityId");
       } catch (storageError) {
-        debugPrint("⚠️ Erreur lors de la suppression des fichiers: $storageError");
+        debugPrint("⚠️ Erreur lors de la suppression du fichier Storage: $storageError");
       }
 
-      debugPrint("✅  supprimée avec succès");
+      debugPrint("✅ Entité supprimée avec succès");
     } catch (e) {
       debugPrint("❌ Erreur lors de la suppression: $e");
       rethrow;
     }
   }
+
+
 
 
   FirebaseStorage get storage => _storage;

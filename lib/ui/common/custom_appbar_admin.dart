@@ -52,32 +52,64 @@ class CustomAppBarAdmin extends StatelessWidget implements PreferredSizeWidget {
   }
 
   List<Widget> generateNavActions(BuildContext context) {
-    final List<Map<String, String>> navItems = [
+    final List<Map<String, dynamic>> navItems = [
       {'label': 'Accueil', 'route': '/account'},
-      {'label' : 'Add_Couture', 'route': '/addcouture'},
-      {'label' : 'Supp_couture', 'route': '/remove_couture'},
-
-
-
-
+      {
+        'label': 'Couture',
+        'children': [
+          {'label': 'Ajouter', 'route': '/add_couture'},
+          {'label': 'Supprimer', 'route': '/delete_couture'},
+        ]
+      },
+      // Ajoutez d'autres menus ici...
     ];
 
     return navItems.map((item) {
-      return GestureDetector(
-        onTap: () => GoRouter.of(context).go(item['route']!),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Center(
-            child: Text(
-              item['label']!,
-              style: textStyleTextAppBar(context),
-            ),
-          ),
-        ),
-      );
+      if (item['children'] != null) {
+        return _buildPopupMenu(context, item);
+      } else {
+        return _buildNavItem(context, item['label'], item['route']);
+      }
     }).toList();
   }
 
+  Widget _buildNavItem(BuildContext context, String label, String route) {
+    return GestureDetector(
+      onTap: () => GoRouter.of(context).go(route),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Center(
+          child: Text(
+            label,
+            style: textStyleTextAppBar(context),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPopupMenu(BuildContext context, Map<String, dynamic> menuItem) {
+    return PopupMenuButton<String>(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Center(
+          child: Text(
+            menuItem['label'],
+            style: textStyleTextAppBar(context),
+          ),
+        ),
+      ),
+      itemBuilder: (BuildContext context) {
+        return (menuItem['children'] as List).map<PopupMenuEntry<String>>((child) {
+          return PopupMenuItem<String>(
+            value: child['route'],
+            child: Text(child['label']),
+          );
+        }).toList();
+      },
+      onSelected: (route) => GoRouter.of(context).go(route),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final isWideScreen = MediaQuery.of(context).size.width > 749;
@@ -123,8 +155,8 @@ class CustomDrawerAdmin extends StatelessWidget {
   List<Widget> generateDrawerItems(BuildContext context) {
     final List<Map<String, String>> drawerItems = [
       {'label': 'Accueil', 'route': '/account'},
-      {'label' : 'Add_Couture', 'route': '/addcouture'},
-      {'label' : 'Supp_couture', 'route': '/remove_couture'},
+      {'label' : 'Add_Couture', 'route': '/add_couture'},
+      {'label' : 'Supp_couture', 'route': '/delete_couture'},
 
 
 

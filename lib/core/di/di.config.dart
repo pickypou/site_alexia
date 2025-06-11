@@ -23,8 +23,10 @@ import '../../domain/use_case/fetch_user_data_usecase.dart' as _i668;
 import '../../ui/account/account_module.dart' as _i692;
 import '../../ui/admin_page/admin_page_module.dart' as _i727;
 import '../../ui/contact/contact_module.dart' as _i106;
+import '../../ui/couture/add_couture_view/add_couture_module.dart' as _i961;
 import '../../ui/couture/couture_interactor.dart' as _i621;
 import '../../ui/couture/couture_view/couture_module.dart' as _i213;
+import '../../ui/couture/delete_couture/delete_couture_module.dart' as _i215;
 import '../../ui/home_page/home_page_module.dart' as _i147;
 import '../../ui/ui_module.dart' as _i573;
 import '../../ui/user/add_user_bloc.dart' as _i480;
@@ -36,7 +38,7 @@ import '../router/router_config.dart' as _i718;
 import 'api/auth_service.dart' as _i977;
 import 'api/firebase_client.dart' as _i703;
 import 'api/firestore_service.dart' as _i746;
-import 'api/storage_service.dart';
+import 'api/storage_service.dart' as _i717;
 import 'firebase_module.dart' as _i616;
 import 'injection.dart' as _i464;
 
@@ -54,17 +56,29 @@ Future<_i174.GetIt> init(
     () => firebaseModule.firebaseApp,
     preResolve: true,
   );
-  gh.singleton<_i718.AppRouterConfig>(() => _i718.AppRouterConfig());
-  gh.singleton<_i573.AppRouter>(() => _i573.AppRouter());
   gh.singleton<_i106.BaseRepository<_i1015.CoutureDto>>(
     () => appModule.coutureRepository,
   );
   gh.singleton<_i621.CoutureInteractor>(() => appModule.coutureInteractor);
+  gh.singleton<_i718.AppRouterConfig>(() => _i718.AppRouterConfig());
+  gh.singleton<_i573.AppRouter>(() => _i573.AppRouter());
   gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.firebaseAuth);
   gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
   gh.lazySingleton<_i457.FirebaseStorage>(() => firebaseModule.firebaseStorage);
   gh.singleton<_i213.CoutureModule>(
     () => _i213.CoutureModule(
+      gh<_i573.AppRouter>(),
+      gh<_i106.BaseRepository<_i1015.CoutureDto>>(),
+    ),
+  );
+  gh.singleton<_i961.AddCoutureModule>(
+    () => _i961.AddCoutureModule(
+      gh<_i573.AppRouter>(),
+      gh<_i106.BaseRepository<_i1015.CoutureDto>>(),
+    ),
+  );
+  gh.singleton<_i215.DeleteCoutureModule>(
+    () => _i215.DeleteCoutureModule(
       gh<_i573.AppRouter>(),
       gh<_i106.BaseRepository<_i1015.CoutureDto>>(),
     ),
@@ -105,7 +119,9 @@ Future<_i174.GetIt> init(
       gh<String>(),
     ),
   );
-  gh.factory<StorageService>(() => StorageService(gh<_i457.FirebaseStorage>()));
+  gh.factory<_i717.StorageService>(
+    () => _i717.StorageService(gh<_i457.FirebaseStorage>()),
+  );
   gh.singleton<_i857.AddUserInteractor>(
     () => _i857.AddUserInteractor(userRepository: gh<_i449.UserRepository>()),
   );

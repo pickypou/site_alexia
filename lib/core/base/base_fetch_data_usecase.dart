@@ -16,11 +16,11 @@ class BaseFetchDataUsecase<T extends BaseDto> {
 
 
   ///Méthode pour récupérer tous les objet d'une entité
-  Future<List<T>> getStream() async {
+  Future<List<Null>> getStream() async {
     try {
       debugPrint('Fetching  data from Firestore...');
       final data = await _repository
-          .getStream()
+          .getStream(collectionName: '', fromMap: (Map<String, dynamic> data, String id) {  })
           .first;
       return data;
     } catch (e) {

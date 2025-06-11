@@ -6,3 +6,15 @@ abstract class BaseListEvent<T> extends Equatable {
 }
 
 class LoadEvent<T> extends BaseListEvent<T> {}
+class EventGotList<T> extends BaseListEvent<T> {
+  final List<T> items;
+
+  EventGotList(this.items);
+}
+
+class EventErrorList<T> extends BaseListEvent<T> {
+  final String error;
+
+  EventErrorList(this.error);
+}
+

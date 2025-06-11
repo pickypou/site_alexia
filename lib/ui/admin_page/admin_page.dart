@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/utils/check_user_connection.dart';
@@ -14,7 +12,6 @@ class AdminPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final auth = GetIt.instance<FirebaseAuth>();
 
       return Scaffold(
         appBar: AppBar(

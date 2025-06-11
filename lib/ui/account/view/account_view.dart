@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:les_petite_creations_d_alexia/ui/common/custom_appbar_admin.dart';
 
 import '../../../core/utils/access_checker.dart';
@@ -37,7 +35,6 @@ class AccountViewState extends State<AccountView> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = GetIt.instance<FirebaseAuth>();
 
     if (isLoading) {
       // Affiche un indicateur de chargement pendant la vérification

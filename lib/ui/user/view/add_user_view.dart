@@ -36,8 +36,6 @@ class AddUserView extends StatelessWidget {
   }
 
   Widget _buildForm(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
-
       return Scaffold(
         appBar: AppBar(
           backgroundColor: theme.colorScheme.primary,
