@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1085054087381",
+    "project_id": "alexia-d2307",
+    "storage_bucket": "alexia-d2307.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085054087381:android:cadee93c62a6cce4e7325c",
+        "android_client_info": {
+          "package_name": "com.example.les_petite_creations_d_alexia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiN4Nn5RtjXZBf8uk8BUwz6AKkiV_89e8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

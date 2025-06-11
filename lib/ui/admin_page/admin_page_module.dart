@@ -1,15 +1,14 @@
-
-
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter/material.dart';
-import 'package:les_petite_creations_d_alexia/ui/couture/couture.dart';
+
 import '../ui_module.dart';
+import 'admin_page.dart';
 
 @singleton
-class CoutureModule implements UIModule {
+class AdminPageModule implements UIModule {
   final AppRouter _appRouter;
-  CoutureModule(this._appRouter);
+  AdminPageModule(this._appRouter);
 
   @override
   void configure() {
@@ -19,8 +18,8 @@ class CoutureModule implements UIModule {
   List<RouteBase> getRoutes()  {
     return [
       GoRoute(
-        path: '/couture',
-        builder: (context, state) =>  Couture(),
+        path: '/admin',
+        builder: (context, state) => const AdminPage(),
       )
     ];
   }

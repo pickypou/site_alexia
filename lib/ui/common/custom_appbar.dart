@@ -38,7 +38,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     } else {
       return context.canPop()
           ? IconButton(
-        icon:  Icon(Icons.arrow_back, color:theme.colorScheme.secondary),
+        icon:  Icon(Icons.arrow_back, color:theme.colorScheme.onSecondary),
         onPressed: () => context.pop(),
       )
           : Container(); // Retourne un widget vide si on ne peut pas revenir en arrière
@@ -79,7 +79,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     final isWideScreen = MediaQuery.of(context).size.width > 749;
 
     return AppBar(
-      backgroundColor: theme.colorScheme.onSurface,
+      backgroundColor: theme.colorScheme.primary,
       title: Text(
         title, style: textStyleTextAppBar(context),
        
@@ -93,7 +93,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           )),
         if (onNavigate != null)
           IconButton(
-            icon:  Icon(Icons.new_releases, color: theme.colorScheme.surface),
+            icon:  Icon(Icons.new_releases, color: theme.colorScheme.onSecondary),
             onPressed: onNavigate!,
           ),
         if (isWideScreen) ...generateNavActions(context),

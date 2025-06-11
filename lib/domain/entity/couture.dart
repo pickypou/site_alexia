@@ -1,25 +1,32 @@
+// Couture
+import '../../core/base/generic_entity.dart';
 
+class Couture extends GenericEntity {
+  Couture({
+    required super.id,
+    required super.title,
+    required super.description,
+    required super.price,
+    required super.imageUrl,
+  });
 
-class Couture {
-  final String id;
-  final String text;
-  final String title;
-  final String imageUrl;
-
-  Couture ({
-    required this.id,
-    required this.text,
-    required this.title,
-    required this.imageUrl
-});
-
-  factory Couture.formMap(Map<String, dynamic>? data, String id) {
+  static Couture fromMap(Map<String, dynamic> json, String id) {
     return Couture(
-        id: id,
-        text: data?['text'] ?? '',
-        title: data?['title']?? '',
-        imageUrl: data?['imageUrl']?? '',
+      id: id,
+      title: json['title'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      price: (json['price'] ?? 0).toString(), // Convertir en String
+      imageUrl: json['imageUrl'] as String? ?? '',
     );
   }
 
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'description': description,
+      'price': price,
+      'imageUrl': imageUrl,
+    };
+  }
 }
