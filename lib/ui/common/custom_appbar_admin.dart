@@ -61,7 +61,13 @@ class CustomAppBarAdmin extends StatelessWidget implements PreferredSizeWidget {
           {'label': 'Supprimer', 'route': '/delete_couture'},
         ]
       },
-      // Ajoutez d'autres menus ici...
+      {
+        'label': 'Tricot',
+        'children': [
+          {'label': 'Ajouter', 'route': '/add_tricot'},
+          {'label': 'Supprimer', 'route': '/delete_tricot'},
+        ]
+      },
     ];
 
     return navItems.map((item) {
@@ -157,6 +163,8 @@ class CustomDrawerAdmin extends StatelessWidget {
       {'label': 'Accueil', 'route': '/account'},
       {'label' : 'Add_Couture', 'route': '/add_couture'},
       {'label' : 'Supp_couture', 'route': '/delete_couture'},
+      {'label': 'Ajouter', 'route': '/add_tricot'},
+      {'label': 'Supprimer', 'route': '/delete_tricot'},
 
 
 

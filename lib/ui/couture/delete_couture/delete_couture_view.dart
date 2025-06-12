@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:les_petite_creations_d_alexia/ui/common/custom_appbar.dart';
 import 'package:les_petite_creations_d_alexia/ui/common/custom_appbar_admin.dart';
 import 'package:les_petite_creations_d_alexia/ui/common/footer.dart';
 

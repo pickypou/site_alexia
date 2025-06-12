@@ -17,6 +17,7 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../../data/dto/couture_dto.dart' as _i1015;
+import '../../data/dto/tricot_dto.dart' as _i823;
 import '../../data/repository/user_repository.dart' as _i449;
 import '../../data/repository/user_repository_impl.dart' as _i568;
 import '../../domain/use_case/fetch_user_data_usecase.dart' as _i668;
@@ -28,6 +29,10 @@ import '../../ui/couture/couture_interactor.dart' as _i621;
 import '../../ui/couture/couture_view/couture_module.dart' as _i213;
 import '../../ui/couture/delete_couture/delete_couture_module.dart' as _i215;
 import '../../ui/home_page/home_page_module.dart' as _i147;
+import '../../ui/tricots/add_tricots/add_tricot_module.dart' as _i723;
+import '../../ui/tricots/delete_tricot/delete_tricot_module.dart' as _i291;
+import '../../ui/tricots/tricot_interactor.dart' as _i204;
+import '../../ui/tricots/tricot_view/tricot_module.dart' as _i470;
 import '../../ui/ui_module.dart' as _i573;
 import '../../ui/user/add_user_bloc.dart' as _i480;
 import '../../ui/user/add_user_interactor.dart' as _i857;
@@ -56,15 +61,25 @@ Future<_i174.GetIt> init(
     () => firebaseModule.firebaseApp,
     preResolve: true,
   );
-  gh.singleton<_i718.AppRouterConfig>(() => _i718.AppRouterConfig());
-  gh.singleton<_i573.AppRouter>(() => _i573.AppRouter());
   gh.singleton<_i106.BaseRepository<_i1015.CoutureDto>>(
     () => appModule.coutureRepository,
   );
   gh.singleton<_i621.CoutureInteractor>(() => appModule.coutureInteractor);
+  gh.singleton<_i106.BaseRepository<_i823.TricotDto>>(
+    () => appModule.tricotRepository,
+  );
+  gh.singleton<_i204.TricotInteractor>(() => appModule.tricotInteractor);
+  gh.singleton<_i718.AppRouterConfig>(() => _i718.AppRouterConfig());
+  gh.singleton<_i573.AppRouter>(() => _i573.AppRouter());
   gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.firebaseAuth);
   gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
   gh.lazySingleton<_i457.FirebaseStorage>(() => firebaseModule.firebaseStorage);
+  gh.singleton<_i213.CoutureModule>(
+    () => _i213.CoutureModule(
+      gh<_i573.AppRouter>(),
+      gh<_i106.BaseRepository<_i1015.CoutureDto>>(),
+    ),
+  );
   gh.singleton<_i961.AddCoutureModule>(
     () => _i961.AddCoutureModule(
       gh<_i573.AppRouter>(),
@@ -77,29 +92,23 @@ Future<_i174.GetIt> init(
       gh<_i106.BaseRepository<_i1015.CoutureDto>>(),
     ),
   );
-  gh.singleton<_i213.CoutureModule>(
-    () => _i213.CoutureModule(
-      gh<_i573.AppRouter>(),
-      gh<_i106.BaseRepository<_i1015.CoutureDto>>(),
-    ),
-  );
-  gh.singleton<_i106.ContactModule>(
-    () => _i106.ContactModule(gh<_i573.AppRouter>()),
-  );
-  gh.singleton<_i147.HomePageModule>(
-    () => _i147.HomePageModule(gh<_i573.AppRouter>()),
-  );
   gh.singleton<_i692.AccountModule>(
     () => _i692.AccountModule(gh<_i573.AppRouter>()),
   );
   gh.singleton<_i727.AdminPageModule>(
     () => _i727.AdminPageModule(gh<_i573.AppRouter>()),
   );
+  gh.singleton<_i106.ContactModule>(
+    () => _i106.ContactModule(gh<_i573.AppRouter>()),
+  );
   gh.singleton<_i644.AddUserModule>(
     () => _i644.AddUserModule(gh<_i573.AppRouter>()),
   );
   gh.singleton<_i415.LoginModule>(
     () => _i415.LoginModule(gh<_i573.AppRouter>()),
+  );
+  gh.singleton<_i147.HomePageModule>(
+    () => _i147.HomePageModule(gh<_i573.AppRouter>()),
   );
   gh.lazySingleton<_i977.AuthService>(
     () => _i977.AuthService(gh<_i59.FirebaseAuth>()),
@@ -111,6 +120,24 @@ Future<_i174.GetIt> init(
     () => _i568.UserRepositoryImpl(
       gh<_i59.FirebaseAuth>(),
       gh<_i974.FirebaseFirestore>(),
+    ),
+  );
+  gh.singleton<_i470.TricotModule>(
+    () => _i470.TricotModule(
+      gh<_i573.AppRouter>(),
+      gh<_i106.BaseRepository<_i823.TricotDto>>(),
+    ),
+  );
+  gh.singleton<_i291.DeleteTricotModule>(
+    () => _i291.DeleteTricotModule(
+      gh<_i573.AppRouter>(),
+      gh<_i106.BaseRepository<_i823.TricotDto>>(),
+    ),
+  );
+  gh.singleton<_i723.AddTricotModule>(
+    () => _i723.AddTricotModule(
+      gh<_i573.AppRouter>(),
+      gh<_i106.BaseRepository<_i823.TricotDto>>(),
     ),
   );
   gh.factory<_i668.FetchUserDataUseCase>(

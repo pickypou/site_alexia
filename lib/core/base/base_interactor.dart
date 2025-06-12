@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:les_petite_creations_d_alexia/core/base/base_repository.dart';
 import 'package:les_petite_creations_d_alexia/core/di/api/firestore_service.dart';
 import 'package:les_petite_creations_d_alexia/core/di/api/storage_service.dart';
-import 'package:les_petite_creations_d_alexia/domain/entity/couture.dart';
 import 'base_dto.dart';
 import 'base_fetch_data_usecase.dart';
 
@@ -103,22 +102,18 @@ import 'base_fetch_data_usecase.dart';
       }
     }
 
-    Future<void> add(Couture couture) async {
+    Future<void> add(T entity) async {
       try {
         await firestore
             .collection(repository.collectionName)
-            .doc(couture.id)
-            .set({
-          'title': couture.title,
-          'description': couture.description,
-          'price': couture.price,
-          'imageUrl': couture.imageUrl,
-        });
+            .doc(entity.id)
+            .set(entity.toMap());
       } catch (e) {
-        debugPrint("Erreur lors de l'ajout de l'objet couture : $e");
-        throw Exception("Erreur lors de l'ajout de l'objet couture : $e");
+        debugPrint("Erreur lors de l'ajout de l'objet : $e");
+        throw Exception("Erreur lors de l'ajout de l'objet : $e");
       }
     }
+
 
 
     Future<T?> getById(String entityId) async {

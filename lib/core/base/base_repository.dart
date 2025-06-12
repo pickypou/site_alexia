@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:les_petite_creations_d_alexia/core/base/base_dto.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/dto/couture_dto.dart';
 
 
 class BaseRepository <T extends BaseDto> {
@@ -49,7 +48,7 @@ class BaseRepository <T extends BaseDto> {
       final entities = await Future.wait(snapshot.docs.map((doc) async {
         try {
           debugPrint("📄 Traitement du document: ${doc.id}");
-          final data = doc.data() as Map<String, dynamic>;
+          final data = doc.data();
           debugPrint("📋 Données du document: $data");
 
           T entity = fromMap(data, doc.id);
@@ -80,12 +79,12 @@ class BaseRepository <T extends BaseDto> {
 
 
   // Méthode séparée pour la récupération d'images
-  Future<T> _getImageForEntity(T entity) async {
+  Future<T> _getImageForEntity(T img) async {
     try {
-      debugPrint("🖼️ Recherche d'image pour: ${entity.id}");
+      debugPrint("🖼️ Recherche d'image pour: ${img.id}");
 
-      final entityRef = _storage.ref().child('couture/${entity.id}');
-      final ListResult result = await entityRef.listAll();
+      final imgRef = _storage.ref().child('$_collectionName/${img.id}');
+      final ListResult result = await imgRef.listAll();
 
       debugPrint("📁 Fichiers trouvés: ${result.items.length}");
 
@@ -100,15 +99,15 @@ class BaseRepository <T extends BaseDto> {
           final imageUrl = await ref.getDownloadURL();
           debugPrint("🖼️ URL d'image trouvée: $imageUrl");
 
-          return _addImageToEntity(entity, imageUrl); // ✅
+          return _addImageToEntity(img, imageUrl); // ✅
         }
       }
 
-      debugPrint("⚠️ Aucune image trouvée pour: ${entity.id}");
-      return entity;
+      debugPrint("⚠️ Aucune image trouvée pour: ${img.id}");
+      return img;
     } catch (e) {
-      debugPrint("❌ Erreur lors de la récupération d'image pour ${entity.id}: $e");
-      return entity;
+      debugPrint("❌ Erreur lors de la récupération d'image pour ${img.id}: $e");
+      return img;
     }
   }
 
@@ -129,23 +128,23 @@ class BaseRepository <T extends BaseDto> {
   }
 
 
-  Future<void> delete(String entityId) async {
-    if (entityId.isEmpty) {
+  Future<void> delete(String id) async {
+    if (id.isEmpty) {
       debugPrint("❌ entityId est vide, suppression annulée.");
       return;
     }
 
     try {
-      debugPrint("🗑️ Suppression de l'entité : $entityId");
+      debugPrint("🗑️ Suppression de l'entité : $id");
 
       // Supprimer le document Firestore
-      await _firestore.collection(_collectionName).doc(entityId).delete();
+      await _firestore.collection(_collectionName).doc(id).delete();
 
       // Supprimer le fichier Storage correspondant (directement)
       try {
-        final fileRef = _storage.ref("$_collectionName/$entityId");
+        final fileRef = _storage.ref("$_collectionName/$id");
         await fileRef.delete();
-        debugPrint("Fichier Storage supprimé: $_collectionName/$entityId");
+        debugPrint("Fichier Storage supprimé: $_collectionName/$id");
       } catch (storageError) {
         debugPrint("⚠️ Erreur lors de la suppression du fichier Storage: $storageError");
       }
@@ -164,16 +163,16 @@ class BaseRepository <T extends BaseDto> {
 
 
   Future<D?> getById<D extends BaseDto>(
-      String entityId,
+      String id,
       D Function(Map<String, dynamic>) fromJson,
       ) async {
     try {
-      debugPrint("🔍 Recherche des Items: $entityId");
+      debugPrint("🔍 Recherche des Items: $id");
 
-      final docSnapshot = await _firestore.collection(_collectionName).doc(entityId).get();
+      final docSnapshot = await _firestore.collection(_collectionName).doc(id).get();
 
       if (!docSnapshot.exists) {
-        debugPrint("❌ Document non trouvé: $entityId");
+        debugPrint("❌ Document non trouvé: $id");
         return null;
       }
 
@@ -182,7 +181,7 @@ class BaseRepository <T extends BaseDto> {
 
       // Récupération optionnelle de l'image
       try {
-        final entityRef = _storage.ref().child('$_collectionName/$entityId');
+        final entityRef = _storage.ref().child('$_collectionName/$id');
         final ListResult result = await entityRef.listAll();
 
         String? imageUrl;
@@ -201,7 +200,7 @@ class BaseRepository <T extends BaseDto> {
           data['imageUrl'] = imageUrl;
         }
       } catch (storageError) {
-        debugPrint('⚠️ Erreur Storage pour $entityId: $storageError');
+        debugPrint('⚠️ Erreur Storage pour $id: $storageError');
       }
 
       return fromJson(data);
@@ -213,10 +212,10 @@ class BaseRepository <T extends BaseDto> {
 
 
 
-  Future<void> uploadField(String entityId, String fieldName, newValue) async {
+  Future<void> uploadField(String id, String fieldName, newValue) async {
     try {
-      debugPrint("📝 Mise à jour du champ $fieldName pour $entityId");
-      await _firestore.collection(_collectionName).doc(entityId).update({
+      debugPrint("📝 Mise à jour du champ $fieldName pour $id");
+      await _firestore.collection(_collectionName).doc(id).update({
         fieldName: newValue,
       });
       debugPrint("✅ Champ mis à jour avec succès");

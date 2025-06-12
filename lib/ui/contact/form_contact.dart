@@ -52,7 +52,7 @@ class FormContactState extends State<FormContact> {
           padding: const EdgeInsets.all(16.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.transparent,
+              color: theme.colorScheme.error,
               border: Border.all(color: theme.colorScheme.secondary, width: 2),
               borderRadius: BorderRadius.circular(15),
             ),

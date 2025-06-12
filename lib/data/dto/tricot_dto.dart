@@ -1,7 +1,7 @@
-import '../../core/base/generic_dto.dart';
+import '../../../core/base/generic_dto.dart';
 
-class CoutureDto extends GenericDto {
-  CoutureDto({
+class TricotDto extends GenericDto {
+  TricotDto({
     required super.id,
     required super.title,
     required super.description,
@@ -9,8 +9,8 @@ class CoutureDto extends GenericDto {
     required super.imageUrl,
   });
 
-  factory CoutureDto.fromJson(Map<String, dynamic> json) {
-    return CoutureDto(
+  factory TricotDto.fromJson(Map<String, dynamic> json) {
+    return TricotDto(
       id: json['id'] as String? ?? '',
       title: json['title'] as String? ?? '',
       description: json['description'] as String? ?? '',
@@ -40,14 +40,14 @@ class CoutureDto extends GenericDto {
     };
   }
 
-  CoutureDto copyWith({
+  TricotDto copyWith({
     String? id,
     String? title,
     String? description,
     String? price,
     String? imageUrl,
   }) {
-    return CoutureDto(
+    return TricotDto(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,

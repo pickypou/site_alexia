@@ -8,9 +8,12 @@ import 'package:les_petite_creations_d_alexia/ui/couture/add_couture_view/add_co
 import 'package:les_petite_creations_d_alexia/ui/couture/couture_view/couture_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/couture/delete_couture/delete_couture_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/home_page/home_page_module.dart';
+import 'package:les_petite_creations_d_alexia/ui/tricots/add_tricots/add_tricot_module.dart';
+import 'package:les_petite_creations_d_alexia/ui/tricots/tricot_view/tricot_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/user/add_user_module.dart';
 import 'package:les_petite_creations_d_alexia/ui/user/login/login_module.dart';
 
+import '../../ui/tricots/delete_tricot/delete_tricot_module.dart';
 import '../di/di.dart';
 
 
@@ -26,7 +29,10 @@ class AppRouterConfig {
       ...getIt<LoginModule>().getRoutes(),
       ...getIt<AccountModule>().getRoutes(),
       ...getIt<AddCoutureModule>().getRoutes(),
-      ...getIt<DeleteCoutureModule>().getRoutes()
+      ...getIt<DeleteCoutureModule>().getRoutes(),
+      ...getIt<AddTricotModule>().getRoutes(),
+      ...getIt<TricotModule>().getRoutes(),
+      ...getIt<DeleteTricotModule>().getRoutes()
 
 
 

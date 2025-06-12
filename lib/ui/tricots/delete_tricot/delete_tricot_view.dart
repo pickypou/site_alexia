@@ -2,10 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:les_petite_creations_d_alexia/ui/common/custom_appbar_admin.dart';
 import 'package:les_petite_creations_d_alexia/ui/common/footer.dart';
-import 'package:les_petite_creations_d_alexia/ui/couture/add_couture_view/add_couture.dart';
 
-class AddCoutureView extends StatelessWidget {
-  const AddCoutureView({super.key});
+import 'delete_tricot.dart';
+
+
+class DeleteTricotView extends StatelessWidget {
+  const DeleteTricotView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +19,11 @@ class AddCoutureView extends StatelessWidget {
 
       Column(
         mainAxisSize: MainAxisSize.max,
-        children: const [
-          Expanded(child: AddCouture()), // utiliser ici la liste liée au bloc
-          Footer(),
+        children: [
+          Expanded(child: DeleteTricot()), // utiliser ici la liste liée au bloc
+          const Footer(),
         ],
       ),
     );
   }
 }
-

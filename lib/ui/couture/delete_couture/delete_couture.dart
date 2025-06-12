@@ -108,11 +108,10 @@ class DeleteCouture extends StatelessWidget {
                                             color: Colors.red,
                                           ),
                                           onPressed: () {
-                                            print(
+                                            debugPrint(
                                               'Suppression demandée pour id: "${dto.id}"',
                                             );
-                                            if (dto.id == null ||
-                                                dto.id.isEmpty) {
+                                            if (dto.id.isEmpty) {
                                               ScaffoldMessenger.of(
                                                 context,
                                               ).showSnackBar(
