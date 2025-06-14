@@ -1,1 +1,55 @@
-{"hosting":{"public":"build/web","ignore":["firebase.json","**/.*","**/node_modules/**"],"rewrites":[{"source":"**","destination":"/index.html"}]},"flutter":{"platforms":{"android":{"default":{"projectId":"alexia-d2307","appId":"1:1085054087381:android:cadee93c62a6cce4e7325c","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"alexia-d2307","configurations":{"android":"1:1085054087381:android:cadee93c62a6cce4e7325c","ios":"1:1085054087381:ios:264b33cab4b79f27e7325c","macos":"1:1085054087381:ios:264b33cab4b79f27e7325c","web":"1:1085054087381:web:d7b6b3a2bd638e8be7325c","windows":"1:1085054087381:web:eb16b282145c18efe7325c"}}}}}}
+{
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "alexia-d2307",
+          "appId": "1:1085054087381:android:cadee93c62a6cce4e7325c",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "alexia-d2307",
+          "configurations": {
+            "android": "1:1085054087381:android:cadee93c62a6cce4e7325c",
+            "ios": "1:1085054087381:ios:264b33cab4b79f27e7325c",
+            "macos": "1:1085054087381:ios:264b33cab4b79f27e7325c",
+            "web": "1:1085054087381:web:d7b6b3a2bd638e8be7325c",
+            "windows": "1:1085054087381:web:eb16b282145c18efe7325c"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint"
+      ]
+    }
+  ]
+}
